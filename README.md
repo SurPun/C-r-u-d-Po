@@ -1,2 +1,12 @@
-# C-r-u-d-Po
-Create-Read-Update-Destroy
+# C-r-u-d Probation-objective
+
+## Create-Read-Update-Destroy
+
+A simple serverless application using AWS
+
+The application should be able to :
+
+- [ ] Create data
+- [ ] Read data
+- [ ] Update data
+- [ ] Delete data
