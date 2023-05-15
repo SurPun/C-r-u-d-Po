@@ -12,6 +12,8 @@ async function fetchItems() {
             Email: ${item.UserId}<br>
             Name: ${item.FirstName} ${item.LastName}
         </p>
+
+        <p>${item}</p>
         `;
     });
 
