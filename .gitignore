@@ -6,7 +6,6 @@ node_modules
 build
 .dist
 dist
-*.zip
 
 # Environment files
 .env
