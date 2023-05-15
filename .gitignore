@@ -11,11 +11,6 @@ dist
 # Environment files
 .env
 
-# GPG Related files
-*.gpg
-*.pgp
-*.asc
-
 # Terraform
 .terraform 
 *.tfstate
