@@ -1,35 +1,31 @@
-const apiUrl = 'https://91mzwuihk7.execute-api.eu-west-2.amazonaws.com/dev/user';
+const AWS = require('aws-sdk');
+const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
-async function fetchItems() {
+exports.handler = async (event) => {
+  const params = {
+    TableName: process.env.DYNAMODB_TABLE
+  };
+
   try {
-    const response = await fetch(apiUrl);
-    const items = await response.json();
-    let itemsHtml = '';
+    const data = await dynamoDB.scan(params).promise();
+    const items = data.Items;
 
-    items.forEach((item) => {
+    const response = {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+        "Access-Control-Allow-Credentials" : true 
+      },
+      body: JSON.stringify(items)
+    };
 
-        function display(item) {
-            let data = '';
-        
-            for (const [key, value] of Object.entries(item)) {
-                data += `<p>${key}: ${value}</p>`;
-            }
-        
-            return data;
-        }
-
-      itemsHtml += 
-        `
-        <hr>
-        <p>${display(item)}</p>
-        `;
-
-    });
-
-    document.getElementById('items').innerHTML = itemsHtml;
+    return response;
   } catch (error) {
-    console.error('Error fetching items:', error);
-  }
-}
+    console.error('Error fetching table items:', error);
 
-fetchItems();
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Error fetching table items' })
+    };
+  }
+};
