@@ -21,7 +21,7 @@ resource "aws_lambda_function" "user_lambda" {
   runtime       = "nodejs14.x"
   role          = aws_iam_role.lambda_exec.arn
 
-  filename = "./lambda/lambda_function_payload.zip"
+  filename = "./lambda/get_lambda.zip"
 
   environment {
     variables = {
@@ -51,6 +51,27 @@ resource "aws_iam_role" "lambda_exec" {
 resource "aws_iam_role_policy_attachment" "lambda_exec" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   role       = aws_iam_role.lambda_exec.name
+}
+
+// DynamoDB Access Policy
+resource "aws_iam_policy" "dynamoDBFullAccessPolicy" {
+  name = "DynamoDBFullAccessPolicy"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = "dynamodb:*"
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy_attachment" "dynamoDBFullAccessAttachment" {
+  name       = "dynamoDBFullAccessAttachment"
+  policy_arn = aws_iam_policy.dynamoDBFullAccessPolicy.arn
+  roles      = [aws_iam_role.lambda_exec.name]
 }
 
 // API Gateway

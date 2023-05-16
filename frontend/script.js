@@ -1,4 +1,4 @@
-const apiUrl = 'https://rvv24kxgo7.execute-api.eu-west-2.amazonaws.com/Prod/user';
+const apiUrl = 'https://91mzwuihk7.execute-api.eu-west-2.amazonaws.com/dev/user';
 
 async function fetchItems() {
   try {

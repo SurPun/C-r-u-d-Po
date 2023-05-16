@@ -1,27 +1,35 @@
-const AWS = require('aws-sdk');
-const dynamoDB = new AWS.DynamoDB.DocumentClient();
+const apiUrl = 'https://91mzwuihk7.execute-api.eu-west-2.amazonaws.com/dev/user';
 
-exports.handler = async (event) => {
-  const params = {
-    TableName: process.env.DYNAMODB_TABLE
-  };
-
+async function fetchItems() {
   try {
-    const data = await dynamoDB.scan(params).promise();
-    const items = data.Items;
+    const response = await fetch(apiUrl);
+    const items = await response.json();
+    let itemsHtml = '';
 
-    console.log('Items:', items);
+    items.forEach((item) => {
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(items)
-    };
+        function display(item) {
+            let data = '';
+        
+            for (const [key, value] of Object.entries(item)) {
+                data += `<p>${key}: ${value}</p>`;
+            }
+        
+            return data;
+        }
+
+      itemsHtml += 
+        `
+        <hr>
+        <p>${display(item)}</p>
+        `;
+
+    });
+
+    document.getElementById('items').innerHTML = itemsHtml;
   } catch (error) {
-    console.error('Error fetching table items:', error);
-
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: 'Error fetching table items' })
-    };
+    console.error('Error fetching items:', error);
   }
-};
+}
+
+fetchItems();

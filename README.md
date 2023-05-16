@@ -7,6 +7,6 @@ A simple serverless application using AWS
 The application should be able to :
 
 - [ ] Create data
-- [ ] Read data
+- [x] Read data
 - [ ] Update data
 - [ ] Delete data
