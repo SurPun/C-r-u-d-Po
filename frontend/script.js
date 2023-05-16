@@ -7,14 +7,23 @@ async function fetchItems() {
     let itemsHtml = '';
 
     items.forEach((item) => {
-      itemsHtml += 
-        `<p>
-            Email: ${item.UserId}<br>
-            Name: ${item.FirstName} ${item.LastName}
-        </p>
 
-        <p>${item}</p>
+        function display(item) {
+            let data = '';
+        
+            for (const [key, value] of Object.entries(item)) {
+                data += `<p>${key}: ${value}</p>`;
+            }
+        
+            return data;
+        }
+
+      itemsHtml += 
+        `
+        <hr>
+        <p>${display(item)}</p>
         `;
+
     });
 
     document.getElementById('items').innerHTML = itemsHtml;
