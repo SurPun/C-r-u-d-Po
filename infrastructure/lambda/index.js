@@ -7,6 +7,7 @@ exports.handler = async (event) => {
   let response;
   try {
     switch (event.httpMethod) {
+      // READ DATA
       case 'GET':
         const getParams = {
           TableName: tableName
@@ -23,6 +24,7 @@ exports.handler = async (event) => {
         };
         break;
       
+      // CREATE DATA
       case 'PUT':
         const requestJSON = JSON.parse(event.body);
         const putParams = {
@@ -38,12 +40,32 @@ exports.handler = async (event) => {
         response = {
           statusCode: 200,
           headers: {
-            "Access-Control-Allow-Origin": "*", 
+            "Access-Control-Allow-Origin": "*", // Required for CORS support to work
             "Access-Control-Allow-Credentials": true
           },
           body: JSON.stringify({ message: `Put item ${requestJSON.Email}` })
         };
         break;
+        
+        //DELETE DATA
+        case 'DELETE':
+          const deleteRequestJSON = JSON.parse(event.body);
+          const deleteParams = {
+            TableName: tableName,
+            Key: {
+              Email: deleteRequestJSON.Email
+            }
+          };
+          await dynamoDB.delete(deleteParams).promise();
+          response = {
+            statusCode: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+              "Access-Control-Allow-Credentials": true
+            },
+            body: JSON.stringify({ message: `Deleted item ${deleteRequestJSON.Email}` })
+          };
+          break;
       
       default:
         response = {
