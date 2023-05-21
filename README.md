@@ -8,5 +8,9 @@ The application should be able to :
 
 - [x] Create data
 - [x] Read data
-- [ ] Update data
+- [x] Update data
 - [x] Delete data
+
+Stretch Goal :
+
+- [ ] Style Frontend
