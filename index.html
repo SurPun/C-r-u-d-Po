@@ -30,6 +30,26 @@
   <!-- DynamoDB GET Data -->
   <div id="items"></div>
 
+  <!-- Patch Modal -->
+  <div id="edit-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <form id="edit-form">
+        <label>Email:</label>
+        <input type="text" id="edit-email" readonly />
+        <label>First Name:</label>
+        <input type="text" id="edit-firstname" />
+        <label>Last Name:</label>
+        <input type="text" id="edit-lastname" />
+        <label>GitHub:</label>
+        <input type="text" id="edit-github" />
+        <button type="submit">Save</button>
+      </form>
+    </div>
+  </div>
+
+
+
   <!-- JS -->
   <script src="script.js"></script>
 </body>

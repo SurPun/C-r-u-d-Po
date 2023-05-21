@@ -28,6 +28,9 @@ document.getElementById('user-form').addEventListener('submit', async (event) =>
     console.log(data);
 
     if (response.status === 200) {
+      // Refresh the page
+      location.reload();
+      
       alert('Successfully submitted data');
     } else {
       alert('Error submitting data');
@@ -49,17 +52,20 @@ async function fetchItems() {
     items.forEach((item) => {
       function display(item) {
         let data = '';
-
+    
         for (const [key, value] of Object.entries(item)) {
           data += `<p>${key}: ${value}</p>`;
         }
-
+    
         // Delete Button
         data += `<button class="delete-button" data-item-id="${item.Email}">Delete</button>`;
-
+    
+        // Edit Button
+        data += `<button class="edit-button" data-item-id="${item.Email}" onclick="editItem('${item.Email}')">Edit</button>`;
+    
         return data;
       }
-
+    
       itemsHtml +=
         `
         <hr>
@@ -88,8 +94,8 @@ async function fetchItems() {
   }
 }
 
+// DELETE
 async function deleteItem(itemId) {
-  // HTTP Method
   const requestOptions = {
     method: 'DELETE',
     headers: {
@@ -112,10 +118,64 @@ async function deleteItem(itemId) {
     }
   } catch (error) {
     console.error('Error:', error);
-    alert('Server Error');
+    alert('Error deleting data');
   }
 }
 
 fetchItems();
 
+
 // UPDATE
+async function editItem(itemId) {
+  const response = await fetch(apiUrl);
+  const items = await response.json();
+  // Find the item in the items array using the itemId (email)
+  const item = items.find(item => item.Email === itemId);
+
+  // Populate the form with the item's values
+  document.getElementById('edit-email').value = item.Email;
+  document.getElementById('edit-firstname').value = item.FirstName;
+  document.getElementById('edit-lastname').value = item.LastName;
+  document.getElementById('edit-github').value = item.Github;
+
+  // Open the modal or form
+  document.getElementById('edit-modal').style.display = 'block';
+}
+
+// Add an event listener for the form submission
+document.getElementById('edit-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  // Get the updated values from the form
+  const updatedItem = {
+    Email: document.getElementById('edit-email').value,
+    FirstName: document.getElementById('edit-firstname').value,
+    LastName: document.getElementById('edit-lastname').value,
+    Github: document.getElementById('edit-github').value
+  };
+
+  // Send a PATCH request to the Lambda function with the updated values
+  const response = await fetch(apiUrl, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(updatedItem)
+  });
+
+  if (response.status === 200) {
+    // Refresh the page
+    location.reload();
+    
+    alert('Successfully Patched data');
+  } else {
+    alert('Error Patching data');
+  }
+  // Close the modal 
+  document.getElementById('edit-modal').style.display = 'none';
+});
+
+// Close Modal function
+function closeModal() {
+  document.getElementById('edit-modal').style.display = 'none';
+}

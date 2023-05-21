@@ -47,6 +47,43 @@ exports.handler = async (event) => {
         };
         break;
         
+        //UPDATE DATA
+        case 'PATCH':
+          const editJSON = JSON.parse(event.body);
+          const email = editJSON.Email;
+        
+          // Create the update expression and expression attribute values
+          let updateExpression = 'set';
+          let expressionAttributeValues = {};
+          for (const key in editJSON) {
+            if (key !== 'Email') {
+              updateExpression += ` ${key} = :${key},`;
+              expressionAttributeValues[`:${key}`] = editJSON[key];
+            }
+          }
+          updateExpression = updateExpression.slice(0, -1);
+        
+          // Update the item in DynamoDB
+          const updateParams = {
+            TableName: tableName,
+            Key: {
+              Email: email
+            },
+            UpdateExpression: updateExpression,
+            ExpressionAttributeValues: expressionAttributeValues,
+            ReturnValues: 'UPDATED_NEW'
+          };
+          await dynamoDB.update(updateParams).promise();
+          response = {
+            statusCode: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+              "Access-Control-Allow-Credentials": true
+            },
+            body: JSON.stringify({ message: `Updated item ${email}` })
+          };
+          break;
+        
         //DELETE DATA
         case 'DELETE':
           const deleteRequestJSON = JSON.parse(event.body);
