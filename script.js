@@ -57,11 +57,11 @@ async function fetchItems() {
           data += `<p><span class="key-display">${key}</span>: <span class="value-display">${value}</span></p>`;
         }
     
-        // Delete Button
-        data += `<button class="delete-button" data-item-id="${item.Email}"><i class="fa-sharp fa-solid fa-trash"></i></button>`;
-    
         // Edit Button
         data += `<button class="edit-button" data-item-id="${item.Email}" onclick="editItem('${item.Email}')"><i class="fa-solid fa-pen"></i></button>`;
+            
+        // Delete Button
+        data += `<button class="delete-button" data-item-id="${item.Email}"><i class="fa-sharp fa-solid fa-trash"></i></button>`;
     
         return data;
       }
