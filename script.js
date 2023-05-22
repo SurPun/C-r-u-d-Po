@@ -54,22 +54,22 @@ async function fetchItems() {
         let data = '';
     
         for (const [key, value] of Object.entries(item)) {
-          data += `<p>${key}: ${value}</p>`;
+          data += `<p><span class="key-display">${key}</span>: <span class="value-display">${value}</span></p>`;
         }
     
         // Delete Button
-        data += `<button class="delete-button" data-item-id="${item.Email}">Delete</button>`;
+        data += `<button class="delete-button" data-item-id="${item.Email}"><i class="fa-sharp fa-solid fa-trash"></i></button>`;
     
         // Edit Button
-        data += `<button class="edit-button" data-item-id="${item.Email}" onclick="editItem('${item.Email}')">Edit</button>`;
+        data += `<button class="edit-button" data-item-id="${item.Email}" onclick="editItem('${item.Email}')"><i class="fa-solid fa-pen"></i></button>`;
     
         return data;
       }
     
       itemsHtml +=
         `
-        <hr>
         <div class="item">${display(item)}</div>
+        <hr>
         `;
     });
 
