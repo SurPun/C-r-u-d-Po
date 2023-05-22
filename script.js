@@ -1,4 +1,4 @@
-const apiUrl = 'https://91mzwuihk7.execute-api.eu-west-2.amazonaws.com/dev/user';
+const apiUrl = 'https://luknbgfi2d.execute-api.eu-west-2.amazonaws.com/dev/user';
 
 // CREATE
 document.getElementById('user-form').addEventListener('submit', async (event) => {
@@ -10,7 +10,7 @@ document.getElementById('user-form').addEventListener('submit', async (event) =>
   const github = document.getElementById('github').value;
 
   const requestOptions = {
-    method: 'PUT',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },

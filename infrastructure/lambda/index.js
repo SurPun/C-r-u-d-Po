@@ -17,7 +17,8 @@ exports.handler = async (event) => {
         response = {
           statusCode: 200,
           headers: {
-            "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true
           },
           body: JSON.stringify(items)
@@ -25,7 +26,7 @@ exports.handler = async (event) => {
         break;
       
       // CREATE DATA
-      case 'PUT':
+      case 'POST':
         const requestJSON = JSON.parse(event.body);
         const putParams = {
           TableName: tableName,
@@ -40,7 +41,7 @@ exports.handler = async (event) => {
         response = {
           statusCode: 200,
           headers: {
-            "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+            "Access-Control-Allow-Origin": "*", 
             "Access-Control-Allow-Credentials": true
           },
           body: JSON.stringify({ message: `Put item ${requestJSON.Email}` })
@@ -77,7 +78,7 @@ exports.handler = async (event) => {
           response = {
             statusCode: 200,
             headers: {
-              "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+              "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Credentials": true
             },
             body: JSON.stringify({ message: `Updated item ${email}` })
@@ -97,7 +98,7 @@ exports.handler = async (event) => {
           response = {
             statusCode: 200,
             headers: {
-              "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+              "Access-Control-Allow-Origin": "*", 
               "Access-Control-Allow-Credentials": true
             },
             body: JSON.stringify({ message: `Deleted item ${deleteRequestJSON.Email}` })

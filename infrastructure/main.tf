@@ -6,10 +6,10 @@ provider "aws" {
 resource "aws_dynamodb_table" "user_table" {
   name         = "user-table"
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "UserId"
+  hash_key     = "Email"
 
   attribute {
-    name = "UserId"
+    name = "Email"
     type = "S"
   }
 }
@@ -80,29 +80,87 @@ resource "aws_api_gateway_rest_api" "user_api" {
   description = "Employee API"
 }
 
+// API Gateway Resources
 resource "aws_api_gateway_resource" "user_resource" {
   rest_api_id = aws_api_gateway_rest_api.user_api.id
   parent_id   = aws_api_gateway_rest_api.user_api.root_resource_id
   path_part   = "user"
 }
 
-resource "aws_api_gateway_method" "user_method" {
+// CREATE Method ---
+resource "aws_api_gateway_method" "user_create_method" {
   rest_api_id   = aws_api_gateway_rest_api.user_api.id
   resource_id   = aws_api_gateway_resource.user_resource.id
-  http_method   = "GET"
+  http_method   = "POST"
   authorization = "NONE"
 }
 
-resource "aws_api_gateway_integration" "user_integration" {
+// API Gateway Integration with Lambda
+resource "aws_api_gateway_integration" "user_create_integration" {
   rest_api_id = aws_api_gateway_rest_api.user_api.id
   resource_id = aws_api_gateway_resource.user_resource.id
-  http_method = aws_api_gateway_method.user_method.http_method
+  http_method = aws_api_gateway_method.user_create_method.http_method
 
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.user_lambda.invoke_arn
 }
 
+// GET Method ---
+resource "aws_api_gateway_method" "user_get_method" {
+  rest_api_id   = aws_api_gateway_rest_api.user_api.id
+  resource_id   = aws_api_gateway_resource.user_resource.id
+  http_method   = "GET"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "user_get_integration" {
+  rest_api_id = aws_api_gateway_rest_api.user_api.id
+  resource_id = aws_api_gateway_resource.user_resource.id
+  http_method = aws_api_gateway_method.user_get_method.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.user_lambda.invoke_arn
+}
+
+// PATCH Method ---
+resource "aws_api_gateway_method" "user_patch_method" {
+  rest_api_id   = aws_api_gateway_rest_api.user_api.id
+  resource_id   = aws_api_gateway_resource.user_resource.id
+  http_method   = "PATCH"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "user_patch_integration" {
+  rest_api_id = aws_api_gateway_rest_api.user_api.id
+  resource_id = aws_api_gateway_resource.user_resource.id
+  http_method = aws_api_gateway_method.user_patch_method.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.user_lambda.invoke_arn
+}
+
+// DELETE Method ---
+resource "aws_api_gateway_method" "user_delete_method" {
+  rest_api_id   = aws_api_gateway_rest_api.user_api.id
+  resource_id   = aws_api_gateway_resource.user_resource.id
+  http_method   = "DELETE"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "user_delete_integration" {
+  rest_api_id = aws_api_gateway_rest_api.user_api.id
+  resource_id = aws_api_gateway_resource.user_resource.id
+  http_method = aws_api_gateway_method.user_delete_method.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.user_lambda.invoke_arn
+}
+
+// Lambda permission
 resource "aws_lambda_permission" "allow_api_gateway" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
@@ -111,8 +169,9 @@ resource "aws_lambda_permission" "allow_api_gateway" {
   source_arn    = "${aws_api_gateway_rest_api.user_api.execution_arn}/*/*/user"
 }
 
+// API Deployment (How do i deploy this without console?)
 resource "aws_api_gateway_deployment" "user_deployment" {
-  depends_on  = [aws_api_gateway_integration.user_integration]
+  depends_on  = [aws_api_gateway_integration.user_create_integration]
   rest_api_id = aws_api_gateway_rest_api.user_api.id
   stage_name  = "dev"
 }
