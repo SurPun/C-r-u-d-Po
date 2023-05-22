@@ -13,4 +13,4 @@ The application should be able to :
 
 Stretch Goal :
 
-- [ ] Style Frontend
+- [x] Style Frontend
