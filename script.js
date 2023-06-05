@@ -1,4 +1,4 @@
-const apiUrl = 'https://luknbgfi2d.execute-api.eu-west-2.amazonaws.com/dev/user';
+const apiUrl = 'https://7ptkxejtw9.execute-api.eu-west-2.amazonaws.com/dev/user';
 
 // CREATE
 document.getElementById('user-form').addEventListener('submit', async (event) => {
@@ -18,7 +18,7 @@ document.getElementById('user-form').addEventListener('submit', async (event) =>
       Email: email,
       FirstName: firstName,
       LastName: lastName,
-      GitHub: github,
+      Github: github,
     }),
   };
 
@@ -59,7 +59,7 @@ async function fetchItems() {
     
         // Edit Button
         data += `<button class="edit-button" data-item-id="${item.Email}" onclick="editItem('${item.Email}')"><i class="fa-solid fa-pen"></i></button>`;
-            
+
         // Delete Button
         data += `<button class="delete-button" data-item-id="${item.Email}"><i class="fa-sharp fa-solid fa-trash"></i></button>`;
     

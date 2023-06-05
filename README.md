@@ -20,6 +20,6 @@ Stretch Goal :
 Sprint 2
 
 - [x] Refactor
-- [ ] Change lambda function from JS to Python
-- [x] Lambda module (Dynamo Table Name Variable Issue)
+- [x] Change lambda function from JS to Python
+- <s>[ ] Lambda module (Dynamo Table Name Variable Issue)</s>
 - [ ] Testing with Boto

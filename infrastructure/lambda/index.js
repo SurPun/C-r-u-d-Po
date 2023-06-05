@@ -34,7 +34,7 @@ exports.handler = async (event) => {
             Email: requestJSON.Email, 
             FirstName: requestJSON.FirstName,
             LastName: requestJSON.LastName,
-            Github: requestJSON.GitHub
+            Github: requestJSON.Github
           }
         };
         await dynamoDB.put(putParams).promise();
