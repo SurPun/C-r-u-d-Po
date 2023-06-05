@@ -4,7 +4,7 @@
 
 A simple serverless application using AWS
 
-Sprint No.1
+Sprint 1
 
 The application should be able to :
 
@@ -17,8 +17,9 @@ Stretch Goal :
 
 - [x] Style Frontend
 
-Sprint No.2
+Sprint 2
 
+- [x] Refactor
 - [ ] Change lambda function from JS to Python
-- [ ] Lambda module
-- [ ] Testing
+- [x] Lambda module (Dynamo Table Name Variable Issue)
+- [ ] Testing with Boto
