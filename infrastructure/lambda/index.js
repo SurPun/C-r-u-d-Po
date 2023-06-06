@@ -1,7 +1,7 @@
-const AWS = require('aws-sdk');
-const dynamoDB = new AWS.DynamoDB.DocumentClient();
+import { DynamoDB } from 'aws-sdk';
+const dynamoDB = new DynamoDB.DocumentClient();
 
-exports.handler = async (event) => {
+export async function handler(event) {
   const tableName = process.env.DYNAMODB_TABLE;
 
   let response;
