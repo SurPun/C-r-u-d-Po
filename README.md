@@ -22,6 +22,7 @@ Sprint 2
 - [x] Refactor
 - [x] Change lambda function from JS to Python
 - <s>[ ] Lambda module (Dynamo Table Name Variable Issue)</s>
+- [ ] Boto3 Mock Resources
 - [ ] Testing with Moto
 	- [ ] Create data Test
 	- [ ] Read data Test
