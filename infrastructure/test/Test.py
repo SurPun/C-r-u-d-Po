@@ -4,7 +4,7 @@ import boto3
 from botocore.exceptions import ClientError
 from moto import mock_dynamodb
 
-# @mock_dynamodb2 is used as a decorator
+# @mock_dynamodb is used as a decorator
 @mock_dynamodb
 class TestDatabaseFunctions(unittest.TestCase):
 
