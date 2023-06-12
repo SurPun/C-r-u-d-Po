@@ -4,7 +4,7 @@ import boto3
 from botocore.exceptions import ClientError
 from moto import mock_dynamodb
 
-# @mock_dynamodb is used as a decorator
+# @mock_dynamodb2 is used as a decorator
 @mock_dynamodb
 class TestDatabaseFunctions(unittest.TestCase):
 
@@ -54,6 +54,23 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual("John", result["FirstName"])
         self.assertEqual("Doe", result["LastName"])
         self.assertEqual("jd2023", result["Github"])
+
+    """
+    Test Update Method
+    """
+    def test_update_user(self):
+        from Put import put_user
+        from Get import get_user
+        from Update import update_user
+
+        put_user("jd@outlook.com", "John", "Doe", "jd2023", self.dynamodb)
+        update_user("jd@outlook.com", "Suraj", "Pun", "SurPun", self.dynamodb)
+        result = get_user("jd@outlook.com", self.dynamodb)
+
+        self.assertEqual("jd@outlook.com", result['Email'])
+        self.assertEqual("Suraj", result["FirstName"])
+        self.assertEqual("Pun", result["LastName"])
+        self.assertEqual("SurPun", result["Github"])
 
 if __name__ == '__main__':
     unittest.main()
