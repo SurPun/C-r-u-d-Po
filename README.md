@@ -26,5 +26,5 @@ Sprint 2
 - [ ] Testing with Moto
   - [x] Create data Test
   - [x] Read data Test
-  - [ ] Update data Test
+  - [x] Update data Test
   - [ ] Delete data Test
