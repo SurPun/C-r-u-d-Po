@@ -31,7 +31,7 @@ resource "aws_iam_policy" "dynamoDBFullAccessPolicy" {
       {
         Effect   = "Allow"
         Action   = "dynamodb:*"
-        Resource = "arn:aws:dynamodb:eu-west-2:900332192728:table/user_table"
+        Resource = aws_dynamodb_table.user_table.arn
       }
     ]
   })
