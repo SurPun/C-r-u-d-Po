@@ -1,0 +1,42 @@
+openapi: 3.0.1
+info:
+  title: "User API"
+  version: "1.0"
+paths:
+  /user:
+    post:
+      operationId: Create
+      responses:
+        '200':
+          description: 200 response
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        type: "aws_proxy"
+        uri: "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:900332192728:function:user_lambda/invocations"
+    get:
+      operationId: Get
+      responses:
+        '200':
+          description: 200 response
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        type: "aws_proxy"
+        uri: "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:900332192728:function:user_lambda/invocations"
+    patch:
+      operationId: Patch
+      responses:
+        '200':
+          description: 200 response
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        type: "aws_proxy"
+        uri: "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:900332192728:function:user_lambda/invocations"
+    delete:
+      operationId: Delete
+      responses:
+        '200':
+          description: 200 response
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        type: "aws_proxy"
+        uri: "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:900332192728:function:user_lambda/invocations"

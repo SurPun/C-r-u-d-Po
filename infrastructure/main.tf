@@ -2,14 +2,14 @@ provider "aws" {
   region = "eu-west-2"
 }
 
-// Lambda function
+// ------------------- Lambda function in PY ------------------- //
 resource "aws_lambda_function" "user_lambda" {
   function_name = "user_lambda"
   handler       = "index.handler"
-  runtime       = "nodejs14.x"
+  runtime       = "python3.8"
   role          = aws_iam_role.lambda_exec.arn
 
-  filename = "./lambda/get_lambda.zip"
+  filename = "./modules/lambda/get_lambda.zip"
 
   environment {
     variables = {
@@ -18,7 +18,7 @@ resource "aws_lambda_function" "user_lambda" {
   }
 }
 
-// Lambda permission
+// ------------------- Lambda permission ------------------- //
 resource "aws_lambda_permission" "allow_api_gateway" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"

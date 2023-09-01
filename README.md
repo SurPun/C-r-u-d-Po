@@ -1,6 +1,5 @@
-# C-r-u-d Probation-objective
-
-A simple serverless application using AWS
+# Crud-Appp
+A Simple Crud Application using AWS Api gateway, dynamodb &amp; lambda
 
 Sprint 1
 
@@ -19,14 +18,9 @@ Sprint 2
 
 - [x] Refactor
 - [x] Change lambda function from JS to Python
-- <s>[ ] Lambda module (Dynamo Table Name Variable Issue)</s>
-- [x] Boto3 Mock Resources
-- [x] Testing with Moto
-  - [x] Create data Test
-  - [x] Read data Test
-  - [x] Update data Test
-  - [x] Delete data Test
+- [x] Testing
 
 Sprint 3
 
-- [ ]
+- [x] Use OpenApi
+- [x] Terraform State (S3)
