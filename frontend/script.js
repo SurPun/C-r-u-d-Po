@@ -1,4 +1,4 @@
-const apiUrl = 'https://7ptkxejtw9.execute-api.eu-west-2.amazonaws.com/dev/user';
+const apiUrl = 'https://u4eaceastb.execute-api.eu-west-2.amazonaws.com/dev/user';
 
 // CREATE
 document.getElementById('user-form').addEventListener('submit', async (event) => {
