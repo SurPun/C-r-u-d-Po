@@ -1,28 +1,28 @@
+@font-face {
+  font-family: 'Merriweather';
+  src: url('fonts/Merriweather-Bold.ttf');
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Merriweather', sans-serif;
   color: #333;
+  background-color: #F5F5FD;
 }
 
 h1 {
   text-align: center;
-  color: #1a3d71;
+  color: #333;
+  margin-top: 80px;
   margin-bottom: 20px;
 }
 
 form {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 50px auto;
   padding: 20px;
-  background-color: #f6f6f6;
-  border-radius: 5px;
-}
-
-#submit-btn {
-  margin: 0 150px;
-}
-
-#save-btn {
-  margin: 0 150px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 label {
@@ -33,25 +33,29 @@ label {
 
 input {
   display: block;
-  width: 95%;
-  padding: 8px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
+  width: 75%;
+  padding: 10px;
+  margin: 25px auto;
+  border: none;
+  border-bottom: 2px solid #ccc;
   border-radius: 3px;
 }
 
 button[type="submit"] {
-  background-color: #1a3d71;
+  display: block;
+  width: 85%;
+  background-color: #151534;
   color: #fff;
   font-weight: bold;
-  padding: 10px 20px;
+  padding: 12px;
+  margin: 40px auto 0px auto;
   border: none;
-  border-radius: 3px;
+  border-radius: 25px;
   cursor: pointer;
 }
 
 button[type="submit"]:hover {
-  background-color: #144c86;
+  background-color: #00009e;
 }
 
 /* Modal styles */
@@ -138,4 +142,16 @@ button[type="submit"]:hover {
 hr {
   width: 80%;
   margin: 10px auto;
+}
+
+/* Accesibility */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
