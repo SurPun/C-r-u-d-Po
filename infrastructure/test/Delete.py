@@ -1,6 +1,4 @@
-from pprint import pprint
 import boto3
-from botocore.exceptions import ClientError
 
 def delete_user(Email, dynamodb=None):
     if not dynamodb:

@@ -1,6 +1,5 @@
 from pprint import pprint
 import boto3
-from botocore.exceptions import ClientError
 
 def put_user(Email, FirstName, LastName, Github, dynamodb=None):
     if not dynamodb:

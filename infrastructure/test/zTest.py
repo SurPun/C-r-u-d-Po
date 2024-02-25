@@ -1,10 +1,16 @@
 from pprint import pprint
 import unittest
 import boto3
-from botocore.exceptions import ClientError
 from moto import mock_dynamodb
 
-# @mock_dynamodb2 is used as a decorator
+# Functions
+from DynamoDB import create_user_table
+from Put import put_user
+from Get import get_user
+from Update import update_user
+from Delete import delete_user
+
+# @mock_dynamodb is used as a decorator
 @mock_dynamodb
 class TestDatabaseFunctions(unittest.TestCase):
 
@@ -29,38 +35,36 @@ class TestDatabaseFunctions(unittest.TestCase):
         """
         self.assertIn('user_table', self.table.name)
     
+    # Put
     """
     Test Put Method
     """
     def test_put_user(self):
-        from Put import put_user
 
         result = put_user("jd@outlook.com", "John", "Doe", "jd2023", self.dynamodb)
 
         self.assertEqual(200, result['ResponseMetadata']["HTTPStatusCode"])
 
+    # Read
     """
     Test Read Method
     """
     def test_get_user(self):
-        from Put import put_user
-        from Get import get_user
 
         put_user("jd@outlook.com", "John", "Doe", "jd2023", self.dynamodb)
         result = get_user("jd@outlook.com", self.dynamodb)
+        
 
         self.assertEqual("jd@outlook.com", result['Email'])
         self.assertEqual("John", result["FirstName"])
         self.assertEqual("Doe", result["LastName"])
         self.assertEqual("jd2023", result["Github"])
 
+    # Update
     """
     Test Update Method
     """
     def test_update_user(self):
-        from Put import put_user
-        from Get import get_user
-        from Update import update_user
 
         put_user("jd@outlook.com", "John", "Doe", "jd2023", self.dynamodb)
         update_user("jd@outlook.com", "Suraj", "Pun", "SurPun", self.dynamodb)
@@ -71,14 +75,11 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual("Pun", result["LastName"])
         self.assertEqual("SurPun", result["Github"])
 
+    # Delete
     """
     Test Delete Method
     """
     def test_delete_user(self):
-        from Put import put_user
-        from Get import get_user
-        from Update import update_user
-        from Delete import delete_user
 
         put_user("jd@outlook.com", "John", "Doe", "jd2023", self.dynamodb)
         
@@ -103,4 +104,4 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertEqual(0, result)
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
